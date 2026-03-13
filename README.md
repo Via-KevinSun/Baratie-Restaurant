@@ -43,26 +43,9 @@ O site conta com as seguintes seções funcionais:
 - **Sobre** — história do restaurante com cartão de receita ilustrativo
 - **Menu** — grade de categorias com pratos e preços
 - **Chef** — perfil do chef executivo com retrato em SVG e citação
-- **Caderno de Receitas** — seção de técnicas culinárias inspirada nos *Cookbooks*
+- **Caderno de Receitas** — seção de técnicas culinárias
 - **Reservas** — formulário funcional de reserva de mesa
 - **Footer** — rodapé completo com navegação, horários e contato
-
----
-
-## 💡 Inspiração
-
-Este projeto foi desenvolvido tendo como referência os **[Anthropic Claude Cookbooks](https://github.com/anthropics/anthropic-cookbook)** — uma coleção de notebooks e receitas que apresenta formas divertidas e eficazes de usar o Claude.
-
-A metáfora do *cookbook* permeia toda a identidade do Baratie:
-
-> Assim como o repositório da Anthropic documenta técnicas e abordagens de IA de forma clara e acessível, o Baratie documenta suas receitas culinárias com o mesmo cuidado e paixão — transformando ingredientes simples em experiências inesquecíveis.
-
-Cada seção do site pode ser lida como um "capítulo" desse caderno:
-- as **entradas** são o ponto de partida
-- os **pratos principais** são o coração do projeto
-- a seção **Caderno** homenageia diretamente o formato de cookbook com técnicas numeradas
-
-O protótipo HTML original do site foi gerado com o auxílio do **Claude (Anthropic)** e posteriormente estruturado em componentes React.
 
 ---
 
