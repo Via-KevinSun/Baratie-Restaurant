@@ -1,0 +1,18 @@
+<svg aria-label="Baratie Icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 64 64" height="64" width="64">
+  
+  <circle fill-opacity="0.15" fill="var(--cream)" r="30" cy="32" cx="32"></circle>
+
+  
+  <path stroke-linejoin="round" stroke-linecap="round" stroke-width="4" stroke="var(--rust)" d="M32 12 L32 48 M20 36 L44 36 M24 48 Q20 52 20 56 M44 48 Q48 52 48 56"></path>
+
+  
+  <path fill="none" stroke-linecap="round" stroke-width="3" stroke="var(--gold)" d="M26 14 Q32 4 38 14"></path>
+
+  
+  <ellipse fill="var(--sea)" ry="3.5" rx="6" cy="28" cx="32"></ellipse>
+  <circle fill="var(--sand)" r="1.8" cy="27" cx="35"></circle>
+  <path stroke-linecap="round" stroke-width="1.5" stroke="var(--cream)" d="M29 28 L35 28"></path>
+
+  
+  <circle stroke-dasharray="2 2" stroke-width="1.5" stroke="var(--gold)" fill="none" r="8" cy="32" cx="32"></circle>
+</svg>

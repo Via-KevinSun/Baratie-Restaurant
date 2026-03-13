@@ -1,0 +1,913 @@
+/* =============================================
+   Global Reset & Variables
+============================================= */
+:root {
+  --cream: #F5EFE0;
+  --warm: #EDE4CE;
+  --ink: #1A1208;
+  --rust: #9B3A1A;
+  --gold: #C8922A;
+  --sand: #D4B483;
+  --sea: #2A4A5E;
+  --fog: #8BA3B0;
+  --paper: #FAF6EC;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* Noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* =============================================
+   NAVIGATION
+============================================= */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 5vw;
+  mix-blend-mode: multiply;
+}
+
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 3rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ink);
+  opacity: 0.65;
+  transition: opacity 0.2s ease;
+}
+
+.nav-links a:hover {
+  opacity: 1;
+}
+
+/* =============================================
+   HERO
+============================================= */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-left {
+  background: var(--sea);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 8rem 5vw 6rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-left::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 120% 60% at 80% 110%, rgba(200,146,42,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 80% at -20% 50%, rgba(42,74,94,0.8) 0%, transparent 70%);
+}
+
+.wave-decoration {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  opacity: 0.12;
+}
+
+.hero-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--sand);
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.5rem, 7vw, 6rem);
+  font-weight: 900;
+  line-height: 0.9;
+  color: var(--cream);
+  position: relative;
+  z-index: 1;
+  margin-bottom: 2.5rem;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--gold);
+  display: block;
+}
+
+.hero-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--fog);
+  max-width: 340px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-cta {
+  margin-top: 3.5rem;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.btn-primary {
+  background: var(--rust);
+  color: var(--cream);
+  padding: 0.9rem 2.5rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.15s;
+}
+
+.btn-primary:hover {
+  background: #7a2c12;
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--sand);
+  border-bottom: 0.5px solid var(--sand);
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.btn-ghost:hover {
+  color: var(--cream);
+  border-color: var(--cream);
+}
+
+.hero-right {
+  background: var(--warm);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-illustration {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+}
+
+/* =============================================
+   STATS BAR
+============================================= */
+.stats-bar {
+  background: var(--ink);
+  color: var(--cream);
+  display: flex;
+  justify-content: space-around;
+  padding: 2.5rem 5vw;
+  position: relative;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--gold);
+  display: block;
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+.stat-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+/* =============================================
+   ABOUT SECTION
+============================================= */
+.about {
+  padding: 10rem 10vw;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 8rem;
+  align-items: center;
+}
+
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--rust);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.section-label::after {
+  content: '';
+  height: 0.5px;
+  width: 3rem;
+  background: var(--rust);
+  opacity: 0.5;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 2rem;
+}
+
+.section-title em {
+  font-style: italic;
+  color: var(--rust);
+}
+
+.about-body {
+  font-size: 1.1rem;
+  color: #3a2d1a;
+  line-height: 1.85;
+  max-width: 520px;
+}
+
+.about-body p + p {
+  margin-top: 1.5rem;
+}
+
+.about-visual {
+  position: relative;
+}
+
+.recipe-card {
+  background: var(--paper);
+  border: 0.5px solid rgba(26,18,8,0.12);
+  padding: 3rem 2.5rem;
+  position: relative;
+  transform: rotate(1.5deg);
+  box-shadow: 4px 8px 30px rgba(26,18,8,0.08);
+}
+
+.recipe-card::before {
+  content: '';
+  position: absolute;
+  inset: -1rem;
+  border: 0.5px dashed rgba(200,146,42,0.3);
+  pointer-events: none;
+}
+
+.recipe-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--ink);
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 0.5px solid rgba(26,18,8,0.1);
+}
+
+.recipe-ingredient {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.4rem 0;
+  font-size: 0.95rem;
+  border-bottom: 0.5px dotted rgba(26,18,8,0.08);
+}
+
+.recipe-ingredient:last-child {
+  border-bottom: none;
+}
+
+.recipe-qty {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--rust);
+  align-self: center;
+}
+
+.recipe-footer {
+  margin-top: 1.5rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.7;
+}
+
+/* =============================================
+   MENU SECTION
+============================================= */
+.menu-section {
+  background: var(--ink);
+  padding: 8rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-section::before {
+  content: 'MENU';
+  position: absolute;
+  right: -2rem;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  font-family: 'Playfair Display', serif;
+  font-size: 12rem;
+  font-weight: 900;
+  color: rgba(255,255,255,0.02);
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.menu-header {
+  text-align: center;
+  padding: 0 10vw 5rem;
+}
+
+.menu-header .section-label {
+  justify-content: center;
+}
+
+.menu-header .section-label::after {
+  display: none;
+}
+
+.menu-header .section-title {
+  color: var(--cream);
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 0.5px solid rgba(255,255,255,0.08);
+  border-left: 0.5px solid rgba(255,255,255,0.08);
+}
+
+.menu-category {
+  padding: 3.5rem 4rem;
+  border-right: 0.5px solid rgba(255,255,255,0.08);
+  border-bottom: 0.5px solid rgba(255,255,255,0.08);
+  transition: background 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-category:hover {
+  background: rgba(200,146,42,0.04);
+}
+
+.menu-cat-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem;
+  font-weight: 900;
+  color: rgba(200,146,42,0.12);
+  line-height: 1;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+.menu-cat-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 1rem;
+}
+
+.menu-cat-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  color: var(--fog);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+.menu-items {
+  list-style: none;
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.6rem 0;
+  border-bottom: 0.5px dotted rgba(255,255,255,0.06);
+  gap: 1rem;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-item-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  color: rgba(245,239,224,0.85);
+  flex: 1;
+}
+
+.menu-item-price {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--gold);
+  opacity: 0.8;
+  white-space: nowrap;
+}
+
+/* =============================================
+   CHEF SECTION
+============================================= */
+.chef-section {
+  padding: 10rem 10vw;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 8rem;
+  align-items: center;
+}
+
+.chef-portrait {
+  aspect-ratio: 3/4;
+  background: var(--sea);
+  position: relative;
+  overflow: hidden;
+}
+
+.chef-portrait svg {
+  width: 100%;
+  height: 100%;
+}
+
+.chef-quote-block {
+  margin-top: 3rem;
+}
+
+.chef-quote {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--ink);
+  position: relative;
+  padding-left: 2rem;
+  border-left: 3px solid var(--gold);
+  margin-bottom: 2rem;
+}
+
+.chef-name {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rust);
+}
+
+.chef-bio {
+  margin-top: 2.5rem;
+  font-size: 1.05rem;
+  color: #3a2d1a;
+  line-height: 1.85;
+}
+
+/* =============================================
+   COOKBOOK SECTION
+============================================= */
+.cookbook-section {
+  background: var(--warm);
+  padding: 8rem 10vw;
+  position: relative;
+}
+
+.cookbook-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 5rem;
+}
+
+.cookbook-intro {
+  max-width: 420px;
+  font-size: 1.05rem;
+  color: #3a2d1a;
+}
+
+.cookbook-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.cookbook-item {
+  background: var(--paper);
+  padding: 2.5rem;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0.1, 1);
+}
+
+.cookbook-item:hover {
+  transform: translateY(-4px);
+  z-index: 10;
+  box-shadow: 0 8px 30px rgba(26,18,8,0.1);
+}
+
+.cookbook-item-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  opacity: 0.7;
+}
+
+.cookbook-item-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+  line-height: 1.25;
+}
+
+.cookbook-item-desc {
+  font-size: 0.9rem;
+  color: #5a4a35;
+  line-height: 1.7;
+}
+
+.cookbook-tag {
+  display: inline-block;
+  margin-top: 1.5rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background: rgba(155,58,26,0.08);
+  color: var(--rust);
+  padding: 0.3rem 0.8rem;
+}
+
+/* =============================================
+   RESERVATIONS
+============================================= */
+.reservations {
+  background: var(--rust);
+  padding: 8rem 10vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8rem;
+  align-items: center;
+}
+
+.res-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 900;
+  color: var(--cream);
+  line-height: 1.1;
+}
+
+.res-title em {
+  font-style: italic;
+  display: block;
+  color: var(--gold);
+}
+
+.res-subtitle {
+  margin-top: 1.5rem;
+  font-size: 1.05rem;
+  color: rgba(245,239,224,0.7);
+  line-height: 1.8;
+}
+
+.res-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(245,239,224,0.5);
+}
+
+.form-input,
+.form-select {
+  background: rgba(245,239,224,0.08);
+  border: 0.5px solid rgba(245,239,224,0.2);
+  color: var(--cream);
+  padding: 0.9rem 1rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  -webkit-appearance: none;
+}
+
+.form-input::placeholder {
+  color: rgba(245,239,224,0.3);
+}
+
+.form-input:focus,
+.form-select:focus {
+  border-color: var(--gold);
+  background: rgba(245,239,224,0.12);
+}
+
+.form-select option {
+  background: var(--rust);
+  color: var(--cream);
+}
+
+.btn-submit {
+  background: var(--ink);
+  color: var(--cream);
+  padding: 1.1rem 2.5rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background 0.2s;
+}
+
+.btn-submit:hover {
+  background: #0a0704;
+}
+
+/* =============================================
+   FOOTER
+============================================= */
+footer {
+  background: var(--ink);
+  padding: 5rem 10vw 3rem;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 4rem;
+  padding-bottom: 4rem;
+  border-bottom: 0.5px solid rgba(255,255,255,0.06);
+}
+
+.footer-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--cream);
+  display: block;
+  margin-bottom: 1rem;
+  letter-spacing: 0.05em;
+}
+
+.footer-tagline {
+  font-style: italic;
+  color: var(--fog);
+  font-size: 0.9rem;
+  max-width: 240px;
+  line-height: 1.7;
+}
+
+.footer-col-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  opacity: 0.7;
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: var(--fog);
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: var(--cream);
+}
+
+.footer-address {
+  color: var(--fog);
+  font-size: 0.9rem;
+  line-height: 1.8;
+  font-style: normal;
+}
+
+.footer-bottom {
+  padding-top: 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-copy {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.2);
+}
+
+/* =============================================
+   ANIMATIONS
+============================================= */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes waveMove {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-20px);
+  }
+}
+
+.hero-eyebrow { animation: fadeUp 0.8s ease forwards; }
+.hero-title   { animation: fadeUp 0.8s 0.1s ease both; }
+.hero-tagline { animation: fadeUp 0.8s 0.2s ease both; }
+.hero-cta     { animation: fadeUp 0.8s 0.3s ease both; }
+
+.wave-path { animation: waveMove 6s ease-in-out infinite; }
+
+/* =============================================
+   RESPONSIVE
+============================================= */
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .hero-left {
+    padding: 8rem 8vw 5rem;
+  }
+
+  .hero-right {
+    height: 50vw;
+  }
+
+  .about {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    padding: 6rem 8vw;
+  }
+
+  .menu-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chef-section {
+    grid-template-columns: 1fr;
+    padding: 6rem 8vw;
+    gap: 4rem;
+  }
+
+  .chef-portrait {
+    max-height: 400px;
+  }
+
+  .cookbook-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .reservations {
+    grid-template-columns: 1fr;
+    padding: 6rem 8vw;
+    gap: 4rem;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .stats-bar {
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+  }
+}
