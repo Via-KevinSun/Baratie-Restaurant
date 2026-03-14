@@ -1,4 +1,4 @@
-import CookbookItem from "../cookbook/CookBookItem";
+import CookbookItem from "../cookbook/CookbookItem";
 
 const cookbookData = [
   {
